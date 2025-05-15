@@ -1,33 +1,43 @@
 const datatypeConverter = require('../util-datatype-converter');
 
-let foo = 0, bar = 0;
-let foobar = [0, 0, 0, 0, 0].length;
+let countsUpToOneHundred = 0, countsUpFromThree = 0;
+let countsDownFromFive = [0, 0, 0, 0, 0].length;
+const maxNumber = 100;
 
-function doTheThing() {
-  let s = "";
-  for (; foo < 100; foo++) s += b(foo) + " ";
-  return s.substring(0, s.length - 1);
+function doFizzBuzzUpTo100() {
+  let resultString = "";
+  for (; countsUpToOneHundred < maxNumber; countsUpToOneHundred++) resultString += addFizzOrBuzz(countsUpToOneHundred) + " ";
+  return resultString.substring(0, resultString.length - 1);
 }
 
-function fooo() {
-  foobar = [0, 0, 0, 0, 0].length;
-  let result = String.fromCharCode.apply(null, datatypeConverter.parseHexString("42757a7a"));
+function buzz() {
+  countsDownFromFive = [0, 0, 0, 0, 0].length;
+  const buzzString = datatypeConverter.parseHexString("42757a7a");
+  let result = String.fromCharCode.apply(null, buzzString);
   return result;
 }
 
-function barr() {
-  bar = 0;
-  let result = String.fromCharCode.apply(null, datatypeConverter.parseHexString("46697a7a"));
+function fizz() {
+  countsUpFromThree = 0;
+  const fizzString = datatypeConverter.parseHexString("46697a7a");
+  let result = String.fromCharCode.apply(null, fizzString);
   return result;
 }
 
-function b(foo) {
-  bar++;
-  foobar--;
-  let s = bar == 0b11 || foobar == 0 ? "" : foo + 1;
-  if (bar == 0b11) s += barr();
-  if (foobar == 0) s += fooo();
-  return s;
+function addFizzOrBuzz(number) {
+  countsUpFromThree++;
+  countsDownFromFive--;
+  const divisibleByThree = countsUpFromThree == 0b11;
+  const divisibleByFive = countsDownFromFive == 0;
+
+  const divisibleByThreeAndFive = divisibleByThree || divisibleByFive;
+  let fizzOrBuzz = divisibleByThreeAndFive ? "" : number + 1;
+  
+  if (divisibleByThree) fizzOrBuzz += fizz();
+
+ 
+  if (divisibleByFive) fizzOrBuzz += buzz();
+  return fizzOrBuzz;
 }
 
-module.exports.doTheThing = doTheThing;
+module.exports.doTheThing = doFizzBuzzUpTo100;
